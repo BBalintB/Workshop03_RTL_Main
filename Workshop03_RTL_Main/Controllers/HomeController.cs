@@ -29,9 +29,20 @@ namespace Workshop03_RTL_Main.Controllers
 
         public IActionResult Index()
         {
+            return View(_db.Advertisements);
+        }
+        public IActionResult Add() 
+        {
             return View();
         }
-
+        [HttpPost]
+        public  IActionResult Add(Advertisement advertisement)
+        {
+            advertisement.Name =  _advertiserManager.GetUserId(this.User);
+            _db.Advertisements.Add(advertisement);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
         public IActionResult Privacy()
         {
             return View();
