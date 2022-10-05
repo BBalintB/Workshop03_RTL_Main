@@ -15,11 +15,11 @@ namespace Workshop03_RTL_Main.Controllers
     {
 
         private readonly UserManager<Advertiser> _advertiserManager;
-        private readonly RoleManager<IdentityUser> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _db;
 
-        public HomeController(UserManager<Advertiser> advertiserManager, RoleManager<IdentityUser> roleManager, ILogger<HomeController> logger, ApplicationDbContext db)
+        public HomeController(UserManager<Advertiser> advertiserManager, RoleManager<IdentityRole> roleManager, ILogger<HomeController> logger, ApplicationDbContext db)
         {
             _advertiserManager = advertiserManager;
             _roleManager = roleManager;
