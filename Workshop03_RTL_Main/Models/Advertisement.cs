@@ -18,5 +18,6 @@ namespace Workshop03_RTL_Main.Models
         public string Description { get; set; }
         [Required]
         public int Price { get; set; }
+        public int NumberOfSubscribers{ get; set; }
     }
 }
