@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Workshop03_RTL_Main.Data;
 
 namespace Workshop03_RTL_Main.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221005095859_newdatabase")]
+    partial class newdatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,9 +264,6 @@ namespace Workshop03_RTL_Main.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("AdvertisementId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
@@ -273,8 +272,6 @@ namespace Workshop03_RTL_Main.Migrations
 
                     b.Property<int>("MinimumWage")
                         .HasColumnType("int");
-
-                    b.HasIndex("AdvertisementId");
 
                     b.HasDiscriminator().HasValue("Advertiser");
                 });
@@ -337,18 +334,6 @@ namespace Workshop03_RTL_Main.Migrations
                         .HasForeignKey("AdvertiserId");
 
                     b.Navigation("Advertiser");
-                });
-
-            modelBuilder.Entity("Workshop03_RTL_Main.Models.Advertiser", b =>
-                {
-                    b.HasOne("Workshop03_RTL_Main.Models.Advertisement", null)
-                        .WithMany("Subscribers")
-                        .HasForeignKey("AdvertisementId");
-                });
-
-            modelBuilder.Entity("Workshop03_RTL_Main.Models.Advertisement", b =>
-                {
-                    b.Navigation("Subscribers");
                 });
 #pragma warning restore 612, 618
         }
