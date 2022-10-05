@@ -20,6 +20,7 @@ namespace Workshop03_RTL_Main.Models
         public int Price { get; set; }
         public int NumberOfSubscribers{ get; set; }
         public string OwnerId { get; set; }
+        public List<Advertiser> Subscribers { get; set; }
 
         [notmapped]
         public virtual Advertiser Advertiser { get; set; }

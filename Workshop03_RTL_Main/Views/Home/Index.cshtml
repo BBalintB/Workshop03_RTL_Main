@@ -1,12 +1,15 @@
-﻿@model IEnumerable<Advertisement> 
+﻿@model IEnumerable<Advertisement>
 
-@foreach(var adv in Model.GroupBy(n => n.Name)) { 
-    <li>@adv.Key
-        <ul>
-            @foreach (var nm in adv) 
-            {
-            <li>@nm.Name</li>
-            }
-        </ul>
-    </li>
+@foreach (var adv in Model.GroupBy(n => n.Name))
+{
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title"> @adv.Key</h5>
+       @foreach (var nm in adv)
+        {
+          <p class="card-text">@nm.Description.</p>
+          <a href="#" class="btn btn-primary">Apply</a>
+        }
+        </div>
+    </div>
 }
