@@ -27,6 +27,7 @@ namespace Workshop03_RTL_Main.Models
         public Advertisement()
         {
             this.Id = Guid.NewGuid().ToString();
+            Subscribers = new List<Advertiser>();
         }
     }
 }

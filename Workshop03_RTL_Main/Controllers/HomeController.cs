@@ -79,14 +79,15 @@ namespace Workshop03_RTL_Main.Controllers
             return RedirectToAction(nameof(Index));
         }
         [Authorize]
-        [HttpPost]
-        public IActionResult Apply(Advertisement ad) 
+        public IActionResult Apply(string ad) 
         {
-
-            ad.NumberOfSubscribers++;
+            ;
+            var ads = _db.Advertisements.FirstOrDefault(t => t.Id == ad);
+            ads.NumberOfSubscribers++;
             Advertiser adv = _db.Advertisers.FirstOrDefault(t => t.Id == _advertiserManager.GetUserId(this.User));
-            ad.Subscribers.Add(adv);
-            return View();
+            ads.Subscribers.Add(adv);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
         public IActionResult Privacy()
         {
