@@ -10,7 +10,7 @@ namespace Workshop03_RTL_Main.Models
     public class Advertisement
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
@@ -19,5 +19,10 @@ namespace Workshop03_RTL_Main.Models
         [Required]
         public int Price { get; set; }
         public int NumberOfSubscribers{ get; set; }
+
+        public Advertisement()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
     }
 }
