@@ -51,6 +51,16 @@ namespace Workshop03_RTL_Main.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        [Authorize]
+        [HttpPost]
+        public IActionResult Apply(Advertisement ad) 
+        {
+
+            ad.NumberOfSubscribers++;
+            Advertiser adv = _db.Advertisers.FirstOrDefault(t => t.Id == _advertiserManager.GetUserId(this.User));
+            ad.Subscribers.Add(adv);
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
