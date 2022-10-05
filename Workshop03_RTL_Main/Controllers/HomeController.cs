@@ -41,7 +41,7 @@ namespace Workshop03_RTL_Main.Controllers
         [HttpPost]
         public  IActionResult Add(Advertisement advertisement)
         {
-            advertisement.Id =  _advertiserManager.GetUserId(this.User);
+            advertisement.OwnerId =  _advertiserManager.GetUserId(this.User);
             var insidedb = _db.Advertisements.FirstOrDefault(a => a.Name == advertisement.Name );
             if (insidedb == null)
             {
