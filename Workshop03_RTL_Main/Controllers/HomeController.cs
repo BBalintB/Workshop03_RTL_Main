@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -31,16 +32,23 @@ namespace Workshop03_RTL_Main.Controllers
         {
             return View(_db.Advertisements);
         }
+        [Authorize]
         public IActionResult Add() 
         {
             return View();
         }
+        [Authorize]
         [HttpPost]
         public  IActionResult Add(Advertisement advertisement)
         {
             advertisement.Name =  _advertiserManager.GetUserId(this.User);
-            _db.Advertisements.Add(advertisement);
-            _db.SaveChanges();
+            var insidedb = _db.Advertisements.FirstOrDefault(a => a.Name == advertisement.Name && a.Description == advertisement.Description);
+            if (insidedb == null)
+            {
+                _db.Advertisements.Add(advertisement);
+                _db.SaveChanges();
+            }
+
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Privacy()
