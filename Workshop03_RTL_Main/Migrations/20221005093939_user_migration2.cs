@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Workshop03_RTL_Main.Data.Migrations
+namespace Workshop03_RTL_Main.Migrations
 {
-    public partial class user_added : Migration
+    public partial class user_migration2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
