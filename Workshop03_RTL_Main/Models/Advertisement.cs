@@ -19,7 +19,10 @@ namespace Workshop03_RTL_Main.Models
         [Required]
         public int Price { get; set; }
         public int NumberOfSubscribers{ get; set; }
+        public string OwnerId { get; set; }
 
+        [notmapped]
+        public virtual Advertiser Advertiser { get; set; }
         public Advertisement()
         {
             this.Id = Guid.NewGuid().ToString();
