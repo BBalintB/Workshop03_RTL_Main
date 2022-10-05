@@ -1,0 +1,9 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Advertiser> SignInManager
+@inject UserManager<Advertiser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <a href="#" class="btn btn-primary">Apply</a>
+
+}

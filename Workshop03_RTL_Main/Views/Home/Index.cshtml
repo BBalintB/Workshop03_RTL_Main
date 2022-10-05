@@ -5,11 +5,11 @@
     <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title"> @adv.Key</h5>
-       @foreach (var nm in adv)
-        {
-          <p class="card-text">@nm.Description.</p>
-          <a href="#" class="btn btn-primary">Apply</a>
-        }
+            @foreach (var nm in adv)
+            {
+                <p class="card-text">@nm.Description. @nm.NumberOfSubscribers @nm.Price</p>
+                <partial name="_ApplyPartial" />
+            }
         </div>
     </div>
 }
