@@ -1,11 +1,14 @@
 ﻿@model IEnumerable<Advertisement> 
 
 @foreach(var adv in Model.GroupBy(n => n.Name)) { 
-    <li>@adv.Key
+    <li>Job name: @adv.Key
         <ul>
             @foreach (var nm in adv) 
             {
-            <li>@nm.Name</li>
+            <li>Job description: @nm.Description</li>
+            <li>Hourly wage: @nm.Price</li>
+            <li>Number of subscribers: @nm.NumberOfSubscribers</li>
+
             }
         </ul>
     </li>

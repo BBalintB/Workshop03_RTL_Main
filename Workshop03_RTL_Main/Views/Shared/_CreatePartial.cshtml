@@ -1,0 +1,11 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Advertiser> SignInManager
+@inject UserManager<Advertiser> UserManager
+
+@if (SignInManager.IsSignedIn(User) && await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin"))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Add">Create Advertisement</a>
+    </li>
+
+}

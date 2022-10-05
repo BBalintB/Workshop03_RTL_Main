@@ -28,16 +28,43 @@ namespace Workshop03_RTL_Main.Controllers
             _db = db;
         }
 
+        public async Task<IActionResult> DelegateAdmin()
+        {
+            var principal = this.User;
+            var user = await _advertiserManager.GetUserAsync(principal);
+            var role = new IdentityRole()
+            {
+                Name = "Admin"
+            };
+            if (!await _roleManager.RoleExistsAsync("Admin"))
+            {
+                await _roleManager.CreateAsync(role);
+            }
+            await _advertiserManager.AddToRoleAsync(user, "Admin");
+            return RedirectToAction(nameof(Index));
+        }
+
         public IActionResult Index()
         {
-            return View(_db.Advertisements);
+            var userId = _advertiserManager.GetUserId(this.User);
+            if (userId != null)
+            {
+                
+                var user = _advertiserManager.Users.FirstOrDefault(t => t.Id == userId);
+                var acceptJobs = _db.Advertisements.Where(x => x.Price > user.MinimumWage);
+                return View(acceptJobs);
+            }
+            else {
+                return View(_db.Advertisements);
+            }
+            
         }
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult Add() 
         {
             return View();
         }
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public  IActionResult Add(Advertisement advertisement)
         {
