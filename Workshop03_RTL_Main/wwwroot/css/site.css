@@ -5,6 +5,7 @@ a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+  border-inline-start-color: aqua
 }
 
 /* Provide sufficient contrast against white background */
@@ -23,6 +24,7 @@ a {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -61,11 +63,41 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  background-color: khaki
 }
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+
+.card 
+{
+    border :  medium;
+    border-color : bisque;
+}
+
+.card-body {
+    background-color: darkgray;
+}
+
+.card-text
+{
+    text-align: center
+}
+
+.btn btn-primary 
+{
+    background-color: burlywood;
+    
+}
+.form-control
+{
+    background-color: aliceblue;
+}
+.navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 {
+    background-color: aliceblue;
 }
