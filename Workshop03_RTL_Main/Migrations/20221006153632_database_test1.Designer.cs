@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Workshop03_RTL_Main.Data;
 
 namespace Workshop03_RTL_Main.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221006153632_database_test1")]
+    partial class database_test1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -267,9 +269,11 @@ namespace Workshop03_RTL_Main.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SubId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SubId");
 
                     b.ToTable("Subscribers");
                 });
@@ -353,6 +357,15 @@ namespace Workshop03_RTL_Main.Migrations
                         .HasForeignKey("AdvertiserId");
 
                     b.Navigation("Advertiser");
+                });
+
+            modelBuilder.Entity("Workshop03_RTL_Main.Models.Subscribers", b =>
+                {
+                    b.HasOne("Workshop03_RTL_Main.Models.Advertiser", "Sub")
+                        .WithMany()
+                        .HasForeignKey("SubId");
+
+                    b.Navigation("Sub");
                 });
 
             modelBuilder.Entity("Workshop03_RTL_Main.Models.Advertiser", b =>

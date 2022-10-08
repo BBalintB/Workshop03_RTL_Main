@@ -1,35 +1,46 @@
-﻿@model IEnumerable<Advertisement>
+﻿
 @using Microsoft.AspNetCore.Identity
+@using Workshop03_RTL_Main.Data
 @inject SignInManager<Advertiser> SignInManager
 @inject UserManager<Advertiser> UserManager
+@model ApplicationDbContext
 
-@foreach (var adv in Model.GroupBy(n => n.Name))
-{
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title"> @adv.Key</h5>
-            @foreach (var nm in adv)
-            {
-                <p class="card-text">@nm.Description.</p>
-                <p class="card-text">@nm.Price.</p>
-                @if (SignInManager.IsSignedIn(User))
+@{
+    var jobMinimumWage = (UserManager.GetUserId(User) != null ? Model.Advertisers.Where(u => u.Id == UserManager.GetUserId(User)).FirstOrDefault().MinimumWage : 0);
+    var acceptablejobs = Model.Advertisements.AsEnumerable().Where(x => x.Price > jobMinimumWage).GroupBy(x => x.Name);
+    @foreach (var adv in acceptablejobs)
+    {
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title"> @adv.Key</h5>
+                @foreach (var nm in adv)
                 {
-                    <p class="card-text">@nm.NumberOfSubscribers.</p>
-                    <a href="/Home/Apply?ad=@nm.Id" class="btn btn-primary">Apply</a>
-
-                    if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin"))
+                    <p class="card-text">@nm.Description.</p>
+                    <p class="card-text">Hourly wage: @nm.Price.</p>
+                    @if (SignInManager.IsSignedIn(User))
                     {
-                        <p>Subscribers:</p>
-                        @foreach (var item in nm.Subscribers)
+
+                        <p class="card-text">Number of subscribers: @nm.NumberOfSubscribers.</p>
+                        <a href="/Home/Apply?ad=@nm.Id" class="btn btn-primary">Apply</a>
+
+                        @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin"))
                         {
-                            <p>@item.FirstName @item.LastName</p>
+                            <p>Subscribers:</p>
+                            var subs = Model.Subscribers.Where(x => x.AdId == nm.Id);
+                            @foreach (var item in subs)
+                            {
+                                var sub = @Model.Advertisers.Where(x => x.Id == item.SubId).FirstOrDefault();
+                                <p>@sub.LastName @sub.FirstName </p>
+                            }
                         }
+
+
                     }
 
-
                 }
-
-            }
+            </div>
         </div>
-    </div>
+    }
 }
+
+

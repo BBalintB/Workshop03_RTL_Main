@@ -46,18 +46,8 @@ namespace Workshop03_RTL_Main.Controllers
 
         public IActionResult Index()
         {
-            var userId = _advertiserManager.GetUserId(this.User);
-            if (userId != null)
-            {
-                
-                var user = _advertiserManager.Users.FirstOrDefault(t => t.Id == userId);
-                var acceptJobs = _db.Advertisements.Where(x => x.Price > user.MinimumWage);
-                return View(acceptJobs);
-            }
-            else {
-                return View(_db.Advertisements);
-            }
-            
+            return View(_db);
+
         }
         [Authorize(Roles = "Admin")]
         public IActionResult Add() 
@@ -81,12 +71,17 @@ namespace Workshop03_RTL_Main.Controllers
         [Authorize]
         public IActionResult Apply(string ad) 
         {
-            ;
             var ads = _db.Advertisements.FirstOrDefault(t => t.Id == ad);
-            ads.NumberOfSubscribers++;
             Advertiser adv = _db.Advertisers.FirstOrDefault(t => t.Id == _advertiserManager.GetUserId(this.User));
-            ads.Subscribers.Add(adv);
-            _db.SaveChanges();
+            var isAlreadyApplied = _db.Subscribers.Where(x=>x.AdId == ads.Id && x.SubId == adv.Id).FirstOrDefault();
+            if (isAlreadyApplied == null)
+            {
+                ads.NumberOfSubscribers++;
+                var subscriber = new Subscribers() { AdId = ads.Id, SubId = adv.Id };
+                _db.Subscribers.Add(subscriber);
+                _db.SaveChanges();
+            }
+            
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Privacy()
