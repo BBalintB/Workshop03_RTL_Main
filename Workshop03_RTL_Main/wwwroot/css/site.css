@@ -76,12 +76,12 @@ body {
 
 .card 
 {
-    border :  medium;
+    border :  double;
     border-color : bisque;
 }
 
 .card-body {
-    background-color: darkgray;
+    background-color: skyblue;
 }
 
 .card-text
@@ -89,10 +89,10 @@ body {
     text-align: center
 }
 
-.btn btn-primary 
-{
-    background-color: burlywood;
-    
+
+.btnbtn-primary {
+  
+
 }
 .form-control
 {

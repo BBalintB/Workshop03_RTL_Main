@@ -22,11 +22,11 @@
                         {
 
                             <p class="card-text">Number of subscribers: @nm.NumberOfSubscribers.</p>
-                            <a href="/Home/Apply?ad=@nm.Id" class="btn btn-primary">Apply</a>
+                            <a href="/Home/Apply?ad=@nm.Id" class="btnbtn-primary">Apply</a>
 
                             @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin"))
                             {
-                                <p>Subscribers:</p>
+                                <h1>Subscribers:</h1>
                                 var subs = Model.Subscribers.Where(x => x.AdId == nm.Id);
                                 @foreach (var item in subs)
                                 {
