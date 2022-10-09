@@ -101,3 +101,8 @@ body {
 .navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 {
     background-color: aliceblue;
 }
+
+.advertisementgrid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
